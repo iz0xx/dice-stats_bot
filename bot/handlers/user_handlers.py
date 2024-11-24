@@ -47,7 +47,7 @@ async def cmd_me(msg: types.Message) -> None:
 - Выбитых <i>Виноградиков</i>: {wins_grapes}\n \
 - Всего <i>выигрышных прокрутов</i>: {wins_all}\n \
 - Всего <i>прокрутов</i>: {spins}\n \
-- Твой <i>процент выигрышного прокрута</i>: {wins_all / spins * 100:.2f}%")
+- Твой <i>процент выигрышного прокрута</i>: {wins_all / spins * 100 if wins_all != 0 else 0:.2f}%")
 
 @user_router.message(Command('top'))
 async def cmd_top(msg: types.Message) -> None:
