@@ -54,7 +54,7 @@ async def cmd_top(msg: types.Message) -> None:
     conn, cur = openSQL()
     cur.execute('INSERT OR IGNORE INTO Data (UserID, Username, ChatID) VALUES (?, ?, ?)',(msg.from_user.id, '@' + msg.from_user.username, msg.chat.id))
     conn.commit()
-    cur.execute('SELECT Win777Count, Username FROM Data WHERE ChatID = ? ORDER BY Win777Count', (msg.chat.id,))
+    cur.execute('SELECT Win777Count, Username FROM Data WHERE ChatID = ? ORDER BY Win777Count DESC', (msg.chat.id,))
     fetch_list = cur.fetchall()[:6]
     top_dict = {}
     for i in range(len(fetch_list)):
