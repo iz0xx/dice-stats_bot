@@ -55,7 +55,7 @@ async def cmd_top(msg: types.Message) -> None:
     cur.execute('INSERT OR IGNORE INTO Data (UserID, Username, ChatID) VALUES (?, ?, ?)',(msg.from_user.id, '@' + msg.from_user.username, msg.chat.id))
     conn.commit()
     cur.execute('SELECT Win777Count, Username FROM Data WHERE ChatID = ? ORDER BY Win777Count DESC', (msg.chat.id,))
-    fetch_list = cur.fetchall()[:6]
+    fetch_list = cur.fetchall()[:5]
     top_dict = {}
     for i in range(len(fetch_list)):
         top_dict[i + 1] = [fetch_list[i][1], fetch_list[i][0]]
@@ -67,7 +67,7 @@ async def cmd_top(msg: types.Message) -> None:
 
 @user_router.message()
 async def msg_user(msg: types.Message) -> None:
-    if msg.content_type == 'dice' and msg.dice.emoji == '🎰':
+    if msg.content_type == 'dice' and msg.dice.emoji == '🎰' and not msg.forward_date:
         conn, cur = openSQL()
         cur.execute('INSERT OR IGNORE INTO Data (UserID, Username, ChatID) VALUES (?, ?, ?)', (msg.from_user.id, '@' + msg.from_user.username, msg.chat.id))
         conn.commit()
